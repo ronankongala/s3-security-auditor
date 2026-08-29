@@ -20,13 +20,13 @@ A Python security tool that audits AWS S3 buckets for misconfigurations using bo
 ## Screenshots
 
 ### 1. Audit Output
-![Audit Output](screenshots/01_s3_audit_output.png.png)
+![Audit Output](screenshots/01_s3_audit_output.png)
 
 ### 2. JSON Report
-![JSON Report](screenshots/02_s3_audit_report_json.png.png)
+![JSON Report](screenshots/02_s3_audit_report_json.png)
 
 ### 3. Script Code
-![Script Code](screenshots/03_s3_auditor_script.png.png)
+![Script Code](screenshots/03_s3_auditor_script.png)
 
 ---
 
