@@ -1,8 +1,6 @@
 # S3 Security Auditor
 
-A Python security tool that audits AWS S3 buckets for misconfigurations using boto3. Scans all buckets in an AWS account and generates a structured JSON risk report with severity-classified findings.
-
----
+A Python security tool that audits AWS S3 buckets for misconfigurations using boto3. It scans every bucket in an AWS account and writes a JSON risk report with each finding classified by severity.
 
 ## What It Checks
 
@@ -15,20 +13,16 @@ A Python security tool that audits AWS S3 buckets for misconfigurations using bo
 | Versioning Disabled | MEDIUM | Object versioning not enabled |
 | Logging Disabled | MEDIUM | Server access logging not configured |
 
----
-
 ## Screenshots
 
-### 1. Audit Output
 ![Audit Output](screenshots/01_s3_audit_output.png)
+*Terminal output from an audit run against two buckets.*
 
-### 2. JSON Report
 ![JSON Report](screenshots/02_s3_audit_report_json.png)
+*The generated `s3_audit_report.json`.*
 
-### 3. Script Code
 ![Script Code](screenshots/03_s3_auditor_script.png)
-
----
+*Part of the auditor script.*
 
 ## Sample Output
 
@@ -43,7 +37,7 @@ PASSED:   0
 
 --- Bucket Details ---
 
-Bucket: aws-cloudtrail-logs-058264465854-434b9f4f
+Bucket: aws-cloudtrail-logs-123456789012-434b9f4f
   [MEDIUM] Versioning Disabled: FAIL
   [MEDIUM] Logging Disabled: FAIL
 
@@ -53,17 +47,15 @@ Bucket: cloudtrail-logs-ronan
 Full report saved to s3_audit_report.json
 ```
 
----
-
 ## Sample JSON Report
 
 ```json
 {
   "scan_time": "2026-06-28T05:13:54.708267",
-  "account": "058264465854",
+  "account": "123456789012",
   "buckets": [
     {
-      "name": "aws-cloudtrail-logs-058264465854-434b9f4f",
+      "name": "aws-cloudtrail-logs-123456789012-434b9f4f",
       "findings": [
         {"check": "Versioning Disabled", "severity": "MEDIUM", "status": "FAIL"},
         {"check": "Logging Disabled", "severity": "MEDIUM", "status": "FAIL"}
@@ -80,7 +72,7 @@ Full report saved to s3_audit_report.json
 }
 ```
 
----
+In this run, both buckets (CloudTrail log buckets) lacked server access logging and one also had versioning off. Nothing was public or unencrypted.
 
 ## Setup
 
@@ -109,28 +101,8 @@ Enter your AWS Access Key ID, Secret Access Key, region (`us-east-1`), and outpu
 python s3_auditor.py
 ```
 
-The script will:
-1. List all S3 buckets in your account
-2. Run 5 security checks per bucket
-3. Print a summary to the terminal
-4. Save the full report to `s3_audit_report.json`
-
----
-
-## Results
-
-- Scanned 2 S3 buckets across 1 AWS account
-- Identified 3 MEDIUM severity misconfigurations
-- 0 CRITICAL or HIGH findings
-- Generated structured JSON report for remediation tracking
-
----
-
-## Skills Demonstrated
-
-- Python security automation with boto3
-- AWS S3 security configuration assessment
-- IAM least-privilege access key management
-- Structured JSON report generation
-- Risk classification by severity (CRITICAL/HIGH/MEDIUM)
-- Cloud security posture evaluation
+The script:
+1. Lists all S3 buckets in your account
+2. Runs the checks in the table above against each bucket
+3. Prints a summary to the terminal
+4. Saves the full report to `s3_audit_report.json`
